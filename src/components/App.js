@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 
   onFindPetsClick = (e) => {
-          console.log('onFindPetsClick')
+      //console.log('onFindPetsClick')
       let category
       if (this.state.filters.type === 'all') {
            category = ''
@@ -47,6 +47,12 @@ class App extends React.Component {
          //.then(console.log)
   }
 
+  onAdoptPet = (e, id) => {
+      console.log("onAdoptPet")
+      this.state.pets.find( pet => pet.id == id).isAdopted = true
+      console.log(this.state.pets.find( pet => pet.id == id))
+  }
+
   render() {
      //console.log(getAll())
      // console.log(this.state.filters)
@@ -62,7 +68,7 @@ class App extends React.Component {
               <Filters onChangeType={this.onChangeType} onFindPetsClick={this.onFindPetsClick}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser onAdoptPet={this.onAdoptPet} pets={this.state.pets}/>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import React from 'react'
 class Filters extends React.Component {
 
   render() {
-      console.log()
+
     return (
       <div className="ui form" onChange={this.props.onChangeType}>
         <h3>Animal type</h3>
