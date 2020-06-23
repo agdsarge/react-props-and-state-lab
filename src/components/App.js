@@ -28,21 +28,28 @@ class App extends React.Component {
       this.setState({filters: {type: e.target.value}})
   }
 
+  onFindPetsClick = (e) => {
+          console.log('onFindPetsClick')
+      let category
+      if (this.state.filters.type === 'all') {
+           category = ''
+      } else {
+           category = `?type=${this.state.filters.type}`
+      }
+      // console.log("category is >>>", category)
+      // console.log(`/api/pets${category}`)
+      fetch(`/api/pets${category}`)
+         .then(r => r.json())
+         .then(data => {
+             this.setState({pets: data})
+             return data
+         })
+         //.then(console.log)
+  }
 
   render() {
      //console.log(getAll())
      // console.log(this.state.filters)
-     let category
-     if (this.state.filters.type === 'all') {
-          category = ''
-     } else {
-          category = `?type=${this.state.filters.type}`
-     }
-     // console.log("category is >>>", category)
-     // console.log(`/api/pets${category}`)
-     fetch(`/api/pets${category}`)
-        .then(r => r.json())
-        .then(console.log)
 
     return (
       <div className="ui container">
@@ -52,7 +59,7 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters onChangeType={this.onChangeType}/>
+              <Filters onChangeType={this.onChangeType} onFindPetsClick={this.onFindPetsClick}/>
             </div>
             <div className="twelve wide column">
               <PetBrowser />
