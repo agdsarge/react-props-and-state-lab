@@ -3,9 +3,9 @@ import React from 'react'
 import Pet from './Pet'
 
 class PetBrowser extends React.Component {
-    
+
   render() {
-      console.log("in pets, this is this.props.pets:", this.props.pets)
+      // console.log("in pets, this is this.props.pets:", this.props.pets)
       //let {pet: {name, type, age, weight, gender}} = this.props
     return (
         <div className="ui cards">
@@ -13,6 +13,7 @@ class PetBrowser extends React.Component {
                 <Pet
                     key={pet.id}
                     pet={pet}
+                    onAdoptPet={this.props.onAdoptPet}
                 />
             )}
 
