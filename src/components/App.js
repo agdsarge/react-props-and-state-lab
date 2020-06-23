@@ -2,6 +2,13 @@ import React from 'react'
 
 import Filters from './Filters'
 import PetBrowser from './PetBrowser'
+//onChangeType={typeSelectFunction}
+//import {getAll} from '../data/pets.js'
+
+// App
+//   |-Filters
+//   |- PetsBrowser
+//      |-Pets
 
 class App extends React.Component {
   constructor() {
@@ -15,7 +22,28 @@ class App extends React.Component {
     }
   }
 
+  onChangeType = (e) => {
+      // console.log("ATTEMPT TO CHANGE THE GD TYPE")
+      // console.log(e.target.value)
+      this.setState({filters: {type: e.target.value}})
+  }
+
+
   render() {
+     //console.log(getAll())
+     // console.log(this.state.filters)
+     let category
+     if (this.state.filters.type === 'all') {
+          category = ''
+     } else {
+          category = `?type=${this.state.filters.type}`
+     }
+     // console.log("category is >>>", category)
+     // console.log(`/api/pets${category}`)
+     fetch(`/api/pets${category}`)
+        .then(r => r.json())
+        .then(console.log)
+
     return (
       <div className="ui container">
         <header>
@@ -24,7 +52,7 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters onChangeType={this.onChangeType}/>
             </div>
             <div className="twelve wide column">
               <PetBrowser />
